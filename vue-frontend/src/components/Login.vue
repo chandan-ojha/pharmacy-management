@@ -10,7 +10,7 @@
         <input type="email" placeholder="Enter your email" />
 
         <label class="block mt-3">Password</label>
-        <input type="password" placeholder="Enter your password" />
+        <input type="password" placeholder="Enter password" />
 
         <button type="submit" class="w-100 mt-3">Login</button>
 
