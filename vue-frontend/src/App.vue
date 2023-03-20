@@ -1,9 +1,14 @@
 <template>
-  <div>Pharmacy Management</div>
+  <login></login>
 </template>
 
 <script>
-export default {};
+import Login from "./components/Login.vue";
+export default {
+  components: {
+    Login,
+  },
+};
 </script>
 
 <style></style>
