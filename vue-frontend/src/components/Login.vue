@@ -6,13 +6,13 @@
         <h2>User Login</h2>
       </div>
       <form action="#" @submit.prevent="handleSubmit">
-        <label class="block mt-3">Email</label>
+        <label class="block mt-3">Username</label>
         <input
-          type="email"
-          placeholder="Enter your email"
-          v-model="formData.email"
+          type="text"
+          placeholder="Enter your username"
+          v-model="formData.user_name"
           required
-          ref="email"
+          ref="user_name"
         />
 
         <label class="block mt-3">Password</label>
@@ -43,27 +43,28 @@
 </template>
 
 <script>
+import axios from "axios";
+import TheButton from "./TheButton.vue";
 export default {
   components: {},
   data: () => ({
     formData: {
-      email: "",
+      user_name: "",
       password: "",
     },
-    movedToRight: false,
-    showing: false,
+    loggingIn: false,
   }),
   methods: {
     handleSubmit() {
-      if (!this.formData.email) {
+      if (!this.formData.user_name) {
         this.$eventBus.emit("toast", {
           type: "Error",
-          message: "Email can not be empty",
+          message: "Username can not be empty",
         });
-        this.$refs.email.focus();
+        this.$refs.user_name.focus();
         return;
       }
-      if (!this.formData.password.length < 6) {
+      if (this.formData.password.length < 6) {
         //alert("Paasword must be at least 6 characters long");
         this.$eventBus.emit("toast", {
           type: "Error",
@@ -72,6 +73,28 @@ export default {
         this.$refs.password.focus();
         return;
       }
+      this.loggingIn = true;
+      axios
+        .post("http://127.0.0.1:8000/api/login", this.formData)
+        .then((res) => {
+          this.$eventBus.emit("toast", {
+            type: "Success",
+            message: res.data.message,
+          });
+        })
+        .catch((err) => {
+          let errorMessage = "Something went wrong";
+          if (err.response) {
+            errorMessage = err.response.data.message;
+          }
+          this.$eventBus.emit("toast", {
+            type: "Error",
+            message: errorMessage,
+          });
+        })
+        .finally(() => {
+          this.loggingIn = false;
+        });
     },
   },
 };
@@ -120,7 +143,7 @@ export default {
   padding: 44px 33px;
 }
 
-.login-card input[type="email"],
+.login-card input[type="text"],
 .login-card input[type="password"] {
   width: 100%;
 }
