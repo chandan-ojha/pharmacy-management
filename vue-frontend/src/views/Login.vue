@@ -86,6 +86,8 @@ export default {
             type: "Success",
             message: res.data.message,
           });
+          localStorage.setItem("accessToken", res.data.access_token);
+          this.$router.push("/dashboard");
         })
         .catch((err) => {
           let errorMessage = "Something went wrong";

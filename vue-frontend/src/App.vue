@@ -1,5 +1,5 @@
 <template>
-  <login></login>
+  <router-view></router-view>
   <TransitionGroup name="slide-left" tag="div" class="toasts">
     <TheToast
       v-for="(toast, i) in toasts"
@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import Login from "./components/Login.vue";
 import TheToast from "./components/TheToast.vue";
 export default {
   data: () => ({
@@ -27,7 +26,6 @@ export default {
     ],
   }),
   components: {
-    Login,
     TheToast,
   },
   mounted() {
