@@ -5,11 +5,13 @@
     </div>
     <div class="sidebar__bottom">
       <div class="sidebar__nav pt-5">
-        <a href="/dashboard/overview">Overview</a>
-        <a href="/dashboard/drugs">Drugs</a>
-        <a href="/dashboard/vendors">Vendors</a>
-        <a href="/dashboard/selling-history"> Selling History </a>
-        <a href="/dashboard/settings">Setting</a>
+        <router-link to="/dashboard/overview">Overview</router-link>
+        <router-link to="/dashboard/drugs">Drugs</router-link>
+        <router-link to="/dashboard/vendors">Vendors</router-link>
+        <router-link to="/dashboard/selling-history">
+          Selling History
+        </router-link>
+        <router-link to="/dashboard/settings">Setting</router-link>
       </div>
     </div>
   </div>
