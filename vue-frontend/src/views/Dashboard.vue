@@ -7,7 +7,9 @@
       <div class="dashboard__top">
         <TheHeader></TheHeader>
       </div>
-      <div class="dashboard__main"></div>
+      <div class="dashboard__main">
+        <RouterView></RouterView>
+      </div>
     </div>
   </div>
 </template>
