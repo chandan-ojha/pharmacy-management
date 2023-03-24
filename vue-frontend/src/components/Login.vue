@@ -24,7 +24,9 @@
           ref="password"
         />
 
-        <button type="submit" class="w-100 mt-3">Login</button>
+        <TheButton :block="true" :loading="loggingIn" class="mt-3">
+          Login
+        </TheButton>
 
         <div class="d-flex jc-between mt-3">
           <div>
@@ -44,7 +46,7 @@
 
 <script>
 import axios from "axios";
-import TheButton from "./TheButton.vue";
+import TheButton from "../components/TheButton.vue";
 export default {
   components: {},
   data: () => ({
@@ -54,6 +56,9 @@ export default {
     },
     loggingIn: false,
   }),
+  components: {
+    TheButton,
+  },
   methods: {
     handleSubmit() {
       if (!this.formData.user_name) {
@@ -172,27 +177,9 @@ export default {
   animation: showhide 1s ease-in;
   /* transition: all 0.5s; */
 }
-.showhide-enter-from {
-  /* opacity: 0;
-  transform: scale(0.5); */
-}
-
-.showhide-enter-to {
-  /* opacity: 1;
-  transform: scale(1); */
-}
 
 .showhide-leave-active {
   animation: showhide 1s ease-in reverse;
   /* transition: all 0.5s; */
-}
-.showhide-leave-from {
-  /* opacity: 1;
-  transform: scale(1); */
-}
-
-.showhide-leave-to {
-  /* opacity: 0;
-  transform: scale(0.5); */
 }
 </style>
