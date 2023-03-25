@@ -30,5 +30,9 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     /*
      * Vendor Api Route List
     */
-    Route::post('create-vendor',[VendorController::class,'create_vendor']);
+    //Route::post('create-vendor',[VendorController::class,'create_vendor']);
 });
+
+Route::get('get-vendor-list',[VendorController::class,'get_vendor_list']);
+Route::post('create-vendor',[VendorController::class,'create_vendor']);
+

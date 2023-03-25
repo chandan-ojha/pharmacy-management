@@ -10,6 +10,27 @@ class VendorController extends BaseController
 {
     /***
      * Api:1
+     * Purpose: Get Vendor List
+     */
+    public function get_vendor_list()
+    {
+        $vendor_list = Vendor::get(['id', 'name', 'description']);
+
+        //~ Check Availability of data
+        if (count($vendor_list) > 0) {
+            return $this->sendResponse(200, 'Success.',
+                [
+                    'count_data' => count($vendor_list),
+                    'vendor_list' => $vendor_list
+                ]
+            );
+        }
+        //~ Error Response
+        return $this->sendError('400', 'Something went wrong!');
+    }
+
+    /***
+     * Api:2
      * Purpose: Create Vendor
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
