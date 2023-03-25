@@ -35,4 +35,6 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
 Route::get('get-vendor-list',[VendorController::class,'get_vendor_list']);
 Route::post('create-vendor',[VendorController::class,'create_vendor']);
+Route::put('update-vendor/{id}',[VendorController::class,'update_vendor']);
+Route::delete('delete-vendor/{id}',[VendorController::class,'delete_vendor']);
 

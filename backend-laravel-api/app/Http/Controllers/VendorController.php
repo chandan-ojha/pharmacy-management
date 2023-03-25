@@ -68,4 +68,72 @@ class VendorController extends BaseController
         }
     }
 
+    /***
+     * Api:3
+     * Purpose: Update Vendor
+     * @param Request $request
+     * @param $vendor_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update_vendor(Request $request, $vendor_id)
+    {
+        $validator = Validator::make($request->all(),[
+            'name' =>'required',
+            'description' =>'required',
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status_code'=>400,
+                'message'=>'Validation Error.',
+            ]);
+        }
+
+        $update_vendor = Vendor::where('id',$vendor_id)->first();
+        $update_vendor->name = $request->name;
+        $update_vendor->description = $request->description;
+
+        if($update_vendor->save())
+        {
+            return response()->json([
+                'status_code' =>200,
+                'message' =>"Vendor updated successfully!",
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status_code' =>400,
+                'message' =>"Something went wrong!"
+            ]);
+        }
+
+    }
+
+    /***
+     * Api:4
+     * Purpose: Delete Vendor
+     * @param $vendor_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete_vendor($vendor_id)
+    {
+        $vendor = Vendor::where('id',$vendor_id)->first();
+
+        if($vendor->delete())
+        {
+            return response()->json([
+                'status_code' =>200,
+                'message' =>"Vendor deleted successfully!"
+            ]);
+        }
+        else {
+            return response()->json([
+                'status_code' =>400,
+                'message' =>"Something went wrong!"
+            ]);
+        }
+    }
+
 }
