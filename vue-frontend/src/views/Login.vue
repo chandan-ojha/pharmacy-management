@@ -47,6 +47,7 @@
 <script>
 import axios from "axios";
 import TheButton from "../components/TheButton.vue";
+import { showErrorMessage, showSuccessMessage } from "../utils/functions";
 export default {
   components: {},
   data: () => ({
@@ -62,19 +63,14 @@ export default {
   methods: {
     handleSubmit() {
       if (!this.formData.user_name) {
-        this.$eventBus.emit("toast", {
-          type: "Error",
-          message: "Username can not be empty",
-        });
+        showErrorMessage("Username can not be empty");
+
         this.$refs.user_name.focus();
         return;
       }
       if (this.formData.password.length < 6) {
-        //alert("Paasword must be at least 6 characters long");
-        this.$eventBus.emit("toast", {
-          type: "Error",
-          message: "Paasword must be at least 6 characters long",
-        });
+        showErrorMessage("Paasword must be at least 6 characters long");
+
         this.$refs.password.focus();
         return;
       }
@@ -82,22 +78,13 @@ export default {
       axios
         .post("http://127.0.0.1:8000/api/login", this.formData)
         .then((res) => {
-          this.$eventBus.emit("toast", {
-            type: "Success",
-            message: res.data.message,
-          });
+          showSuccessMessage(res);
+
           localStorage.setItem("accessToken", res.data.access_token);
           this.$router.push("/dashboard");
         })
         .catch((err) => {
-          let errorMessage = "Something went wrong";
-          if (err.response) {
-            errorMessage = err.response.data.message;
-          }
-          this.$eventBus.emit("toast", {
-            type: "Error",
-            message: errorMessage,
-          });
+          showErrorMessage(err);
         })
         .finally(() => {
           this.loggingIn = false;

@@ -107,6 +107,8 @@
 import axios from "axios";
 import TheButton from "../../components/TheButton.vue";
 import TheModal from "../../components/TheModal.vue";
+import { showErrorMessage, showSuccessMessage } from "../../utils/functions";
+
 export default {
   data: () => ({
     addModal: false,
@@ -150,14 +152,7 @@ export default {
           this.vendors = res.data.vendor_list;
         })
         .catch((err) => {
-          let errorMessage = "Something went wrong";
-          if (err.response) {
-            errorMessage = err.response.data.message;
-          }
-          this.$eventBus.emit("toast", {
-            type: "Error",
-            message: errorMessage,
-          });
+          showErrorMessage(err);
         })
         .finally(() => {
           this.gettingVendors = false;
@@ -175,23 +170,13 @@ export default {
           },
         })
         .then((res) => {
-          this.$eventBus.emit("toast", {
-            type: "Success",
-            message: res.data.message,
-          });
+          showSuccessMessage(res);
           this.addModal = false;
           this.resetForm();
           this.getAllvendors();
         })
         .catch((err) => {
-          let errorMessage = "Something went wrong";
-          if (err.response) {
-            errorMessage = err.response.data.message;
-          }
-          this.$eventBus.emit("toast", {
-            type: "Error",
-            message: errorMessage,
-          });
+          showErrorMessage(err);
         })
         .finally(() => {
           this.adding = false;
@@ -212,21 +197,11 @@ export default {
           }
         )
         .then((res) => {
-          this.$eventBus.emit("toast", {
-            type: "Success",
-            message: res.data.message,
-          });
+          showSuccessMessage(res);
           this.editModal = false;
         })
         .catch((err) => {
-          let errorMessage = "Something went wrong";
-          if (err.response) {
-            errorMessage = err.response.data.message;
-          }
-          this.$eventBus.emit("toast", {
-            type: "Error",
-            message: errorMessage,
-          });
+          showErrorMessage(err);
         })
         .finally(() => {
           this.editing = false;
@@ -246,22 +221,12 @@ export default {
           }
         )
         .then((res) => {
-          this.$eventBus.emit("toast", {
-            type: "Success",
-            message: res.data.message,
-          });
+          showSuccessMessage(res);
           this.deleteModal = false;
           this.getAllvendors();
         })
         .catch((err) => {
-          let errorMessage = "Something went wrong";
-          if (err.response) {
-            errorMessage = err.response.data.message;
-          }
-          this.$eventBus.emit("toast", {
-            type: "Error",
-            message: errorMessage,
-          });
+          showErrorMessage(err);
         })
         .finally(() => {
           this.deleting = false;

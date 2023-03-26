@@ -12,24 +12,17 @@
 
 <script>
 import TheToast from "./components/TheToast.vue";
+import { eventBus } from "./utils/eventBus";
+
 export default {
   data: () => ({
-    toasts: [
-      /* {
-        type: "Success",
-        message: "Done Successfully!",
-      },
-      {
-        type: "Error",
-        message: "Something went wrong!",
-      }, */
-    ],
+    toasts: [],
   }),
   components: {
     TheToast,
   },
   mounted() {
-    this.$eventBus.on("toast", (data) => {
+    eventBus.on("toast", (data) => {
       this.toasts.push(data);
       this.removeOneToast();
     });
