@@ -108,6 +108,7 @@ import axios from "axios";
 import TheButton from "../../components/TheButton.vue";
 import TheModal from "../../components/TheModal.vue";
 import { showErrorMessage, showSuccessMessage } from "../../utils/functions";
+import privateService from "../../service/privateService";
 
 export default {
   data: () => ({
@@ -131,7 +132,8 @@ export default {
     TheModal,
   },
   mounted() {
-    this.getAllvendors();
+    setTimeout(this.getAllvendors, 100);
+    //this.getAllvendors();
   },
   methods: {
     resetForm() {
@@ -141,12 +143,9 @@ export default {
     //get all vendors
     getAllvendors() {
       this.gettingVendors = true;
-      axios
-        .get("http://127.0.0.1:8000/api/get-vendor-list", {
-          headers: {
-            authorization: localStorage.getItem("accessToken"),
-          },
-        })
+
+      privateService
+        .getVendors()
         .then((res) => {
           //console.log(res.data);
           this.vendors = res.data.vendor_list;
@@ -163,12 +162,8 @@ export default {
     addNew() {
       //console.log(localStorage.getItem("accessToken"));
       this.adding = true;
-      axios
-        .post("http://127.0.0.1:8000/api/create-vendor", this.newVendor, {
-          headers: {
-            authorization: localStorage.getItem("accessToken"),
-          },
-        })
+      privateService
+        .addVendor(this.newVendor)
         .then((res) => {
           showSuccessMessage(res);
           this.addModal = false;
@@ -186,16 +181,8 @@ export default {
     //edit vendor
     editVendor() {
       this.editing = true;
-      axios
-        .put(
-          "http://127.0.0.1:8000/api/update-vendor/" + this.selectedVendor.id,
-          this.selectedVendor,
-          {
-            headers: {
-              authorization: localStorage.getItem("accessToken"),
-            },
-          }
-        )
+      privateService
+        .editVendor(this.selectedVendor)
         .then((res) => {
           showSuccessMessage(res);
           this.editModal = false;
@@ -211,15 +198,8 @@ export default {
     //delete vendor
     deleteVendor() {
       this.deleting = true;
-      axios
-        .delete(
-          "http://127.0.0.1:8000/api/delete-vendor/" + this.selectedVendor.id,
-          {
-            headers: {
-              authorization: localStorage.getItem("accessToken"),
-            },
-          }
-        )
+      privateService
+        .deleteVendor(this.selectedVendor.id)
         .then((res) => {
           showSuccessMessage(res);
           this.deleteModal = false;

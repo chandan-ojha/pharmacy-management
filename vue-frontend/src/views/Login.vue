@@ -47,6 +47,7 @@
 <script>
 import axios from "axios";
 import TheButton from "../components/TheButton.vue";
+import { setPrivateHeaders } from "../service/axiosInstance";
 import { showErrorMessage, showSuccessMessage } from "../utils/functions";
 export default {
   components: {},
@@ -81,6 +82,7 @@ export default {
           showSuccessMessage(res);
 
           localStorage.setItem("accessToken", res.data.access_token);
+          setPrivateHeaders();
           this.$router.push("/dashboard");
         })
         .catch((err) => {
