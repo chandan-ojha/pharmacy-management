@@ -104,7 +104,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import TheButton from "../../components/TheButton.vue";
 import TheModal from "../../components/TheModal.vue";
 import { showErrorMessage, showSuccessMessage } from "../../utils/functions";

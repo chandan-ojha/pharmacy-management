@@ -16,4 +16,20 @@ export default {
   deleteVendor(id) {
     return axiosPrivate.delete("/delete-vendor/" + id);
   },
+
+  getDrugs() {
+    return axiosPrivate.get("/get-drug-list");
+  },
+
+  addDrug(payload) {
+    return axiosPrivate.post("/create-drug", payload);
+  },
+
+  editDrug(payload) {
+    return axiosPrivate.put("/update-drug/" + payload.id, payload);
+  },
+
+  deleteDrug(id) {
+    return axiosPrivate.delete("/delete-drug/" + id);
+  },
 };
