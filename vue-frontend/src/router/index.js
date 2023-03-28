@@ -28,4 +28,9 @@ const router = createRouter({
   history: createWebHistory(),
 });
 
+// router.beforeEach((to, from) => {
+//   console.log("To: ", to);
+//   console.log("From", from);
+// });
+
 export default router;
