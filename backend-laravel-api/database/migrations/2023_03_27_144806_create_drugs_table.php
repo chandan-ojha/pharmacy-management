@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('weight');
-            $table->string('type');
-            //cls$table->foreignId('vendor_id')->constrained('vendors')->onDelete('cascade');
+            //$table->string('type');
+            $table->enum('type', ['Tab', 'Capsule','Syrup','Suppository']);
+            //$table->foreignId('vendor_id')->constrained('vendors')->onDelete('cascade');
             $table->string('vendor');
             $table->string('price');
             $table->string('quantity');
