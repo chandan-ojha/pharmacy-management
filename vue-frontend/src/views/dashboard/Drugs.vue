@@ -66,7 +66,7 @@
           <input
             type="radio"
             name="drugType"
-            value="Tab"
+            value="Capsule"
             v-model="newDrug.type"
           />
           Capsule
@@ -75,7 +75,7 @@
           <input
             type="radio"
             name="drugType"
-            value="Tab"
+            value="Syrup"
             v-model="newDrug.type"
           />
           Syrup
@@ -84,7 +84,7 @@
           <input
             type="radio"
             name="drugType"
-            value="Tab"
+            value="Suppository"
             v-model="newDrug.type"
           />
           Suppository
