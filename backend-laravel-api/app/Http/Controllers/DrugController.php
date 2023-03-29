@@ -152,4 +152,33 @@ class DrugController extends BaseController
         }
     }
 
+    /***
+     * Api:5
+     * Purpose: Search Drug
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search_drug(Request $request)
+    {
+        $searchString = $request->searchString;
+        $drug_list = Drug::where('name', 'like', '%' . $searchString . '%')
+            ->orWhere('weight', 'like', '%' . $searchString . '%')
+            ->orWhere('type', 'like', '%' . $searchString . '%')
+            ->orWhere('vendor', 'like', '%' . $searchString . '%')
+            ->orWhere('price', 'like', '%' . $searchString . '%')
+            ->orWhere('quantity', 'like', '%' . $searchString . '%')
+            ->get(['id', 'name', 'weight', 'type', 'vendor', 'price', 'quantity']);
+
+        if (count($drug_list) > 0) {
+            return $this->sendResponse(200, 'Success.',
+                [
+                    'count_data' => count($drug_list),
+                    'drug_list' => $drug_list
+                ]
+            );
+        }
+        //~ Error Response
+        return $this->sendError('400', 'Something went wrong!');
+    }
+
 }

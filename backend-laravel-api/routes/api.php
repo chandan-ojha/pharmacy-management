@@ -46,4 +46,5 @@ Route::get('get-drug-list',[DrugController::class,'get_drug_list']);
 Route::post('create-drug',[DrugController::class,'create_drug']);
 Route::put('update-drug/{drug_id}',[DrugController::class,'update_drug']);
 Route::delete('delete-drug/{drug_id}',[DrugController::class,'delete_drug']);
+Route::post('search-drug',[DrugController::class,'search_drug']);
 
