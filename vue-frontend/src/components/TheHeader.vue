@@ -6,7 +6,7 @@
         class="the-header__search"
         placeholder="Search..."
         @focus="searchFocused = true"
-        @blur="searchFocused = false"
+        @blur="handleBlur"
         v-model="searchString"
       />
       <div class="search-results" v-show="searchFocused">
@@ -46,10 +46,54 @@
       </div>
     </div>
   </div>
+  <TheModal v-model="detailsModal" heading="Drug Details">
+    <div>
+      <table class="drug-details">
+        <tr>
+          <th>Name:</th>
+          <td>{{ selectedDrug.name }}</td>
+        </tr>
+        <tr>
+          <th>Type:</th>
+          <td>{{ selectedDrug.type }}</td>
+        </tr>
+
+        <tr>
+          <th>Weight:</th>
+          <td>{{ selectedDrug.weight }}</td>
+        </tr>
+
+        <tr>
+          <th>Vendor:</th>
+          <td>{{ selectedDrug.vendor }}</td>
+        </tr>
+
+        <tr>
+          <th>Price:</th>
+          <td>{{ selectedDrug.price }}</td>
+        </tr>
+
+        <tr>
+          <th>Available:</th>
+          <td>{{ selectedDrug.quantity }}</td>
+        </tr>
+
+        <tr>
+          <th>Quantity:</th>
+          <td><input type="number" v-model="quantity" ref="qtyInput" /></td>
+        </tr>
+      </table>
+
+      <TheButton @click="addToCart" class="w-100 mt-4">Add to cart</TheButton>
+    </div>
+  </TheModal>
 </template>
 
 <script>
+import TheModal from "./TheModal.vue";
+import TheButton from "./TheButton.vue";
 import privateService from "../service/privateService";
+import { showErrorMessage } from "../utils/functions";
 export default {
   data: () => ({
     showAvatar: false,
@@ -57,7 +101,14 @@ export default {
     drugs: [],
     searchFocused: false,
     lastSearchTime: 0,
+    detailsModal: false,
+    selectedDrug: {},
+    quantity: "",
   }),
+  components: {
+    TheModal,
+    TheButton,
+  },
   methods: {
     logout() {
       localStorage.removeItem("accessToken");
@@ -75,6 +126,25 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+    },
+    handleClick(drug) {
+      this.selectedDrug = drug;
+      this.detailsModal = true;
+    },
+    addToCart() {
+      if (!this.quantity) {
+        showErrorMessage("Please enter quantity");
+        this.$refs.qtyInput.focus();
+      } else {
+        console.log("Adding to cart...");
+        this.detailsModal = false;
+        //TODO: Implement add to cart
+      }
+    },
+    handleBlur() {
+      setTimeout(() => {
+        this.searchFocused = false;
+      }, 100);
     },
   },
   watch: {
