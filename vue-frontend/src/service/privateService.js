@@ -32,4 +32,10 @@ export default {
   deleteDrug(id) {
     return axiosPrivate.delete("/delete-drug/" + id);
   },
+
+  searchDrug(searchString) {
+    return axiosPrivate.post("/search-drug", {
+      searchString: searchString,
+    });
+  },
 };
