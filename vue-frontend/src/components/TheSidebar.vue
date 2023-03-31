@@ -17,6 +17,15 @@
   </div>
 </template>
 
+<script>
+import { infoStore } from "../data/info";
+export default {
+  data: () => ({
+    projectName: infoStore.projectName,
+  }),
+};
+</script>
+
 <style>
 .sidebar {
   flex: 1;

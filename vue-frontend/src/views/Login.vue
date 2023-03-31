@@ -1,6 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-card">
+      <!-- <h2>{{ projectName }}</h2> -->
       <div class="text-center">
         <img src="/img/lock.png" class="login-card__icon" />
         <h2>User Login</h2>
@@ -49,6 +50,8 @@ import axios from "axios";
 import TheButton from "../components/TheButton.vue";
 import { setPrivateHeaders } from "../service/axiosInstance";
 import { showErrorMessage, showSuccessMessage } from "../utils/functions";
+import { infoStore } from "../data/info";
+
 export default {
   components: {},
   data: () => ({
@@ -57,6 +60,7 @@ export default {
       password: "",
     },
     loggingIn: false,
+    projectName: infoStore.projectName,
   }),
   components: {
     TheButton,
