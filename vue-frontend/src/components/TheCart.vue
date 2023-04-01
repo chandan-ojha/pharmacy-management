@@ -16,19 +16,22 @@
           />
         </th>
       </tr>
-      <tr v-for="i in 5" :key="i">
-        <td>Name</td>
-        <td>50 mg</td>
-        <td>30</td>
+      <tr v-for="(item, key) in cartItems" :key="key">
+        <td>{{ item.name }}</td>
+        <td>{{ item.weight }}</td>
+        <td>{{ item.price }}</td>
         <td>
-          <input class="qty-input" type="number" />
+          <input class="qty-input" type="number" v-model="item.quantity" />
         </td>
-        <td class="text-right">500</td>
+        <td class="text-right">
+          {{ item.price * item.quantity }}
+        </td>
         <td>
           <img
             src="/img/trash.png"
             class="action-icon action-icon--delete-small"
             alt=""
+            @click="removeFromCart(item.id)"
           />
         </td>
       </tr>
@@ -36,7 +39,7 @@
         <td colspan="6">
           <div class="text-right">
             <hr />
-            <strong>Grand Total : 1000 </strong>
+            <strong>Grand Total : {{ totalPrice }} </strong>
           </div>
         </td>
       </tr>
@@ -46,8 +49,21 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "pinia";
+import { useCartStore } from "../store/cartStore";
 import TheButton from "./TheButton.vue";
 export default {
+  methods: {
+    ...mapActions(useCartStore, {
+      removeFromCart: "remove",
+    }),
+  },
+  computed: {
+    ...mapState(useCartStore, {
+      cartItems: "products",
+      totalPrice: "totalPrice",
+    }),
+  },
   components: {
     TheButton,
   },
