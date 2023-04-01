@@ -76,13 +76,16 @@ class AuthController extends Controller
 
         $user = User::where('user_name',$request->user_name)->first();
 
-        $tokenResult = $user->createToken('authToken')->plainTextToken;
+        $accessToken = $user->createToken('authToken')->plainTextToken;
+        $refreshToken = $user->createToken('authToken-refresh')->plainTextToken;
 
         return response()->json([
             'code' =>200,
             'message' =>'Logged in successfully',
-            'access_token' => $tokenResult,
-            'user' => $user
+            'access_token' => $accessToken,
+            'token_type' => 'Bearer',
+            'refresh_token' => $refreshToken,
+            'user' => $user->first(['name','user_name','email'])
         ]);
     }
 
