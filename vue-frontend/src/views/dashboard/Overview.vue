@@ -1,13 +1,14 @@
-<template>
-  <h2>Overview</h2>
-  <!-- {{ projectName }} -->
-</template>
+<template>Logged is as {{ username }}</template>
 
 <script>
-import { infoStore } from "../../data/info";
+import { mapState } from "pinia";
+import { useAuthStore } from "../../store/authStore";
 export default {
-  data: () => ({
-    projectName: infoStore.projectName,
-  }),
+  computed: {
+    ...mapState(useAuthStore, {
+      username: "username",
+    }),
+  },
+  methods: {},
 };
 </script>

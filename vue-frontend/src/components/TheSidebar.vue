@@ -18,12 +18,7 @@
 </template>
 
 <script>
-import { infoStore } from "../data/info";
-export default {
-  data: () => ({
-    projectName: infoStore.projectName,
-  }),
-};
+export default {};
 </script>
 
 <style>
