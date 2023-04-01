@@ -85,7 +85,8 @@ class AuthController extends Controller
             'access_token' => $accessToken,
             'token_type' => 'Bearer',
             'refresh_token' => $refreshToken,
-            'user' => $user->first(['name','user_name','email'])
+            //'user' => $user->first(['name','user_name','email'])
+            'user_name' => $user->user_name
         ]);
     }
 
