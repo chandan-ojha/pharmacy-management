@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\DrugController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +45,10 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::put('update-drug/{drug_id}',[DrugController::class,'update_drug']);
     Route::delete('delete-drug/{drug_id}',[DrugController::class,'delete_drug']);
     Route::post('search-drug',[DrugController::class,'search_drug']);
+
+    /**
+     * Checkout Api Route List
+     */
+    Route::post('place-order',[CheckoutController::class,'place_order']);
 });
 

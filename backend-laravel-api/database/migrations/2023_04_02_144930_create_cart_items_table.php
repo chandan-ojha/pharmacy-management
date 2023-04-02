@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_details', function (Blueprint $table) {
+        Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('drug_id')->constrained('drugs');
-            $table->foreignId('order_id')->constrained('orders');
+            $table->string('name');
+            $table->string('weight');
+            $table->enum('type', ['Tab', 'Capsule','Syrup','Suppository']);
+            $table->string('vendor');
+            $table->string('price');
+            $table->string('quantity');
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_details');
+        Schema::dropIfExists('cart_items');
     }
 };
