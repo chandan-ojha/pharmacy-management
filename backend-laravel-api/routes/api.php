@@ -28,23 +28,21 @@ Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
-    //Route::post('create-vendor',[VendorController::class,'create_vendor']);
+    /**
+     * Vendor Api Route List
+     */
+    Route::get('get-vendor-list',[VendorController::class,'get_vendor_list']);
+    Route::post('create-vendor',[VendorController::class,'create_vendor']);
+    Route::put('update-vendor/{vendor_id}',[VendorController::class,'update_vendor']);
+    Route::delete('delete-vendor/{vendor_id}',[VendorController::class,'delete_vendor']);
+
+    /**
+     * Drug Api Route List
+     */
+    Route::get('get-drug-list',[DrugController::class,'get_drug_list']);
+    Route::post('create-drug',[DrugController::class,'create_drug']);
+    Route::put('update-drug/{drug_id}',[DrugController::class,'update_drug']);
+    Route::delete('delete-drug/{drug_id}',[DrugController::class,'delete_drug']);
+    Route::post('search-drug',[DrugController::class,'search_drug']);
 });
-
-/**
- * Vendor Api Route List
- */
-Route::get('get-vendor-list',[VendorController::class,'get_vendor_list']);
-Route::post('create-vendor',[VendorController::class,'create_vendor']);
-Route::put('update-vendor/{vendor_id}',[VendorController::class,'update_vendor']);
-Route::delete('delete-vendor/{vendor_id}',[VendorController::class,'delete_vendor']);
-
-/**
- * Drug Api Route List
- */
-Route::get('get-drug-list',[DrugController::class,'get_drug_list']);
-Route::post('create-drug',[DrugController::class,'create_drug']);
-Route::put('update-drug/{drug_id}',[DrugController::class,'update_drug']);
-Route::delete('delete-drug/{drug_id}',[DrugController::class,'delete_drug']);
-Route::post('search-drug',[DrugController::class,'search_drug']);
 
