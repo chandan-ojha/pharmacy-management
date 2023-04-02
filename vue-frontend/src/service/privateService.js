@@ -38,4 +38,8 @@ export default {
       searchString: searchString,
     });
   },
+
+  placeOrder(payload) {
+    return axiosPrivate.post("/place-order", payload);
+  },
 };

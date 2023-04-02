@@ -44,7 +44,33 @@
         </td>
       </tr>
     </table>
-    <TheButton class="w-100 mt-4">Checkout</TheButton>
+    <TheButton
+      class="w-100 mt-4"
+      v-if="!enteringCustomerInfo"
+      @click="enteringCustomerInfo = true"
+    >
+      Checkout
+    </TheButton>
+
+    <div v-if="enteringCustomerInfo" class="mt-4">
+      <label for="" class="block">Customer Name</label>
+      <input
+        type="text"
+        placeholder="Enter customer name"
+        v-model="customer"
+        class="w-100"
+      />
+      <label for="" class="block mt-4">Customer Phone</label>
+      <input
+        type="text"
+        placeholder="Enter customer phone"
+        v-model="phone"
+        class="w-100"
+      />
+      <TheButton class="w-100 mt-4" @click="confirmNow" :loading="confirming">
+        Confirm
+      </TheButton>
+    </div>
   </div>
 </template>
 
@@ -52,11 +78,45 @@
 import { mapState, mapActions } from "pinia";
 import { useCartStore } from "../store/cartStore";
 import TheButton from "./TheButton.vue";
+import privateService from "../service/privateService";
+import { showErrorMessage, showSuccessMessage } from "../utils/functions";
+
 export default {
+  data: () => ({
+    phone: "",
+    customer: "",
+    enteringCustomerInfo: false,
+    confirming: false,
+  }),
   methods: {
     ...mapActions(useCartStore, {
       removeFromCart: "remove",
     }),
+    confirmNow() {
+      const orderData = {
+        customer: this.customer,
+        phone: this.phone,
+        cartItems: this.cartItems,
+      };
+      //console.log(orderData);
+      this.confirming = true;
+
+      privateService
+        .placeOrder(orderData)
+        .then((res) => {
+          showSuccessMessage(res);
+          this.phone = "";
+          this.customer = "";
+          this.enteringCustomerInfo = false;
+          this.$router.push("/dashboard/selling-history");
+        })
+        .catch((err) => {
+          showErrorMessage(err);
+        })
+        .finally(() => {
+          this.confirming = false;
+        });
+    },
   },
   computed: {
     ...mapState(useCartStore, {
