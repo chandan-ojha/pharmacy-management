@@ -13,8 +13,12 @@ export const axiosPrivate = axios.create({
 });
 
 axiosPrivate.interceptors.request.use(
-  function (response) {
-    return response;
+  function (request) {
+    const $token = localStorage.getItem("accessToken");
+    if ($token) {
+      request.headers["Authorization"] = `Bearer ${$token}`;
+    }
+    return request;
   },
   function (error) {
     //console.log("Error: ", error);
