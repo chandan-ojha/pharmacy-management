@@ -7,6 +7,7 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\DrugController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,5 +58,11 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
      */
     Route::get('get-sell-history',[SellController::class,'get_sell_history']);
     Route::delete('delete-sell-history/{sell_id}',[SellController::class,'delete_sell_history']);
+
+    /**
+     * Dashboard Api Route List
+     */
+    Route::get('overview',[DashboardController::class,'overview']);
+
 });
 
