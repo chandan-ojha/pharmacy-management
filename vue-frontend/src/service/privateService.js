@@ -42,4 +42,12 @@ export default {
   placeOrder(payload) {
     return axiosPrivate.post("/place-order", payload);
   },
+
+  getSellHistory() {
+    return axiosPrivate.get("/get-sell-history");
+  },
+
+  deleteSellHistory(sell_id) {
+    return axiosPrivate.delete("/delete-sell-history/" + sell_id);
+  },
 };
