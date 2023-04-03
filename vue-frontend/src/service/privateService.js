@@ -50,4 +50,8 @@ export default {
   deleteSellHistory(sell_id) {
     return axiosPrivate.delete("/delete-sell-history/" + sell_id);
   },
+
+  getOverview() {
+    return axiosPrivate.get("/get-overview");
+  },
 };
