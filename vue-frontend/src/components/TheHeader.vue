@@ -29,7 +29,7 @@
       <div class="avatar" @click="showAvatar = !showAvatar">C</div>
       <div class="avatar__overflow" v-show="showAvatar">
         <div class="avatar__overflow-title">test@gmail.com</div>
-        <router-link to="/dashboard/settings/account">
+        <router-link to="#">
           <div
             class="avatar__overflow-link mt-2"
             @click="

@@ -91,6 +91,7 @@ export default {
   methods: {
     ...mapActions(useCartStore, {
       removeFromCart: "remove",
+      clearCart: "clearCart",
     }),
     confirmNow() {
       const orderData = {
@@ -98,7 +99,7 @@ export default {
         phone: this.phone,
         cartItems: this.cartItems,
       };
-      //console.log(orderData);
+      console.log(orderData);
       this.confirming = true;
 
       privateService
@@ -108,6 +109,7 @@ export default {
           this.phone = "";
           this.customer = "";
           this.enteringCustomerInfo = false;
+          this.clearCart();
           this.$router.push("/dashboard/selling-history");
         })
         .catch((err) => {

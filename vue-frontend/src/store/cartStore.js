@@ -24,8 +24,13 @@ export const useCartStore = defineStore("cart", {
         this.products[payload.id] = payload;
       }
     },
+
     remove(id) {
       delete this.products[id];
+    },
+
+    clearCart() {
+      this.products = {};
     },
   },
 });
