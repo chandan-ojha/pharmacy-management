@@ -12,7 +12,7 @@ class DashboardController extends BaseController
     /**
      * Overview
      */
-    public function overview()
+    public function get_overview()
     {
         $totalVendors = Vendor::count();
         $totalDrugs = Drug::count();

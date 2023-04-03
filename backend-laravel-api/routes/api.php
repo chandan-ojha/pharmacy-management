@@ -62,7 +62,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     /**
      * Dashboard Api Route List
      */
-    Route::get('overview',[DashboardController::class,'overview']);
+    Route::get('get-overview',[DashboardController::class,'get_overview']);
 
 });
 
