@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\DrugController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\SellController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,5 +51,11 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
      * Checkout Api Route List
      */
     Route::post('place-order',[CheckoutController::class,'place_order']);
+
+    /**
+     * Sell History Api Route List
+     */
+    Route::get('get-sell-history',[SellController::class,'get_sell_history']);
+    Route::delete('delete-sell-history/{sell_id}',[SellController::class,'delete_sell_history']);
 });
 
