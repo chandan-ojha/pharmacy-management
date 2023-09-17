@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <div class="dashboard" :style="{ '--brand-color': brandColor }">
     <div class="dashboard__left">
       <TheSidebar></TheSidebar>
     </div>
@@ -31,10 +31,18 @@ import TheSidebar from "../components/TheSidebar.vue";
 import TheHeader from "../components/TheHeader.vue";
 import TheCart from "../components/TheCart.vue";
 import { setPrivateHeaders } from "../service/axiosInstance";
+import { useThemeStore } from "../store/themeStore";
+import { mapState } from "pinia";
+
 export default {
   data: () => ({
     cartOpened: false,
   }),
+  computed: {
+    ...mapState(useThemeStore, {
+      brandColor: "brandColor",
+    }),
+  },
   components: {
     TheSidebar,
     TheHeader,

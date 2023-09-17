@@ -6,6 +6,9 @@ const Drugs = () => import("../views/dashboard/Drugs.vue");
 const Vendors = () => import("../views/dashboard/Vendors.vue");
 const SellingHistory = () => import("../views/dashboard/SellingHistory.vue");
 const Settings = () => import("../views/dashboard/Settings.vue");
+const Account = () => import("../views/dashboard/settings/Account.vue");
+const Website = () => import("../views/dashboard/settings/Website.vue");
+const Theme = () => import("../views/dashboard/settings/Theme.vue");
 
 const routes = [
   { path: "/", component: LoginPage },
@@ -18,7 +21,16 @@ const routes = [
       { path: "drugs", component: Drugs },
       { path: "vendors", component: Vendors },
       { path: "selling-history", component: SellingHistory },
-      { path: "settings", component: Settings },
+      {
+        path: "settings",
+        component: Settings,
+        redirect: "/dashboard/settings/account",
+        children: [
+          { path: "account", component: Account },
+          { path: "website", component: Website },
+          { path: "theme", component: Theme },
+        ],
+      },
     ],
   },
 ];
